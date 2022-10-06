@@ -1,224 +1,90 @@
 #!/bin/sh
-# Install V2/X2 binary and decompress binary
-mkdir /tmp/xray
-curl --retry 10 --retry-max-time 60 -L -H "Cache-Control: no-cache" -fsSL github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip -o /tmp/xray/xray.zip
-busybox unzip /tmp/xray/xray.zip -d /tmp/xray
-install -m 755 /tmp/xray/xray /usr/local/bin/xray
-install -m 755 /tmp/xray/geosite.dat /usr/local/bin/geosite.dat
-install -m 755 /tmp/xray/geoip.dat /usr/local/bin/geoip.dat
-xray -version
-rm -rf /tmp/xray
+
 cat << EOF > /conf/config.json
 {
-    "log": {
-        "loglevel": "none"
-    },
-    "inbounds": [
-        {   
-            "listen": "/etc/caddy/vmess,0644",
-            "protocol": "vmess",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "$AUUID"
-                    }
-                ],
-                "disableInsecureEncryption": true
-            },
-            "streamSettings": {
-                "network": "ws",
-                "allowInsecure": false,
-                "wsSettings": {
-                  "path": "/$AUUID-vmess"
-                }
-            },
-            "sniffing": {
-                "enabled": true,
-                "destOverride": [
-                    "http",
-                    "tls"
-                ]
-            }
-        },
-        {   
-            "listen": "/etc/caddy/vless,0644",
-            "protocol": "vless",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "$AUUID",
-                        "level": 0,
-                        "email": "love@v2fly.org"
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "ws",
-                "allowInsecure": false,
-                "wsSettings": {
-                  "path": "/$AUUID-vless"
-                }
-            },
-            "sniffing": {
-                "enabled": true,
-                "destOverride": [
-                    "http",
-                    "tls"
-                ]
-            }
-        },
-        {   
-            "listen": "127.0.0.1",
-            "port": 4324,
-            "protocol": "shadowsocks",
-            "settings": {
-                "email": "love@v2fly.org",
-                "method": "chacha20-ietf-poly1305",
-                "password":"$AUUID",
-                "network": "tcp,udp",
-                "ivCheck": true
-            },
-            "streamSettings": {
-                "network": "ws",
-                "security": "none",
-                "wsSettings": {
-                    "path": "/$AUUID-ss"
-                }
-            },
-            "sniffing": {
-                "enabled": true,
-                "destOverride": [
-                    "http",
-                    "tls"
-                ]
-            }
-        },
-        {   
-            "listen": "127.0.0.1",
-            "port": 5234,
-            "protocol": "socks",
-            "settings": {
-                "auth": "password",
-                "accounts": [
-                    {
-                        "user": "$AUUID",
-                        "pass": "$AUUID"
-                    }
-                ]
-            },
-            "streamSettings": {
-                "network": "ws",
-                "wsSettings": {
-                  "path": "/$AUUID-socks"
-                }
-            },
-            "sniffing": {
-                "enabled": true,
-                "destOverride": [
-                    "http",
-                    "tls"
-                ]
-            }
-        },
-        {   
-            "listen": "/etc/caddy/trojan,0644",
-            "protocol": "trojan",
-            "settings": {
-                "clients": [
-                    {
-                        "password":"$AUUID",
-                        "level": 0,
-                        "email": "love@v2fly.org"
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "ws",
-                "allowInsecure": false,
-                "wsSettings": {
-                  "path": "/$AUUID-trojan"
-                }
-            },
-            "sniffing": {
-                "enabled": true,
-                "destOverride": [
-                    "http",
-                    "tls"
-                ]
-            }
-        }
-    ],
-    "routing": {
-        "domainStrategy": "IPIfNonMatch",
-        "domainMatcher": "mph",
-        "rules": [
+ "apps": {
+   "http": {
+     "servers": {
+       "srv0": {
+         "listen": [
+           ":4431"   //监听端口
+         ],
+         "routes": [
            {
-              "type": "field",
-              "protocol": [
-                 "bittorrent"
-              ],
-              "domains": [
-                  "geosite:cn",
-                  "geosite:category-ads-all"
-              ],
-              "outboundTag": "blocked"
+             "handle": [
+               {
+                 "auth_user_deprecated": "user",   //用户名
+                 "auth_pass_deprecated": "pass",  //密码
+                 "handler": "forward_proxy",
+                 "hide_ip": true,
+                 "hide_via": true,
+                 "probe_resistance": {}
+               }
+             ]
            },
            {
-              "type": "field",
-              "outboundTag":
-                  "sockstor",
-                  "domains": [
-                      "geosite:tor"
-                  ]
-           },
-           {
-              "type": "field",
-              "outboundTag": "blocked",
-              "domains": [
-                  "geosite:category-ads-all"
-              ]
+             "handle": [
+               {
+                 "handler": "reverse_proxy",
+                 "headers": {
+                   "request": {
+                     "set": {
+                       "Host": [
+                         "{http.reverse_proxy.upstream.hostport}"
+                       ],
+                       "X-Forwarded-Host": [
+                         "{http.request.host}"
+                       ]
+                     }
+                   }
+                 },
+                 "transport": {
+                   "protocol": "http",
+                   "tls": {}
+                 },
+                 "upstreams": [
+                   {
+                     "dial": "demo.cloudreve.org:443"  //伪装网址
+                   }
+                 ]
+               }
+             ]
            }
-        ]
-    },
-    "outbounds": [
-        {
-            "protocol": "freedom",
-            "settings": {
-                "domainStrategy": "UseIPv4",
-                "userLevel": 0
-            }
-        },
-        {
-            "protocol": "blackhole",
-            "tag": "blocked"
-        },
-        {
-            "protocol": "socks",
-            "tag": "sockstor",
-            "settings": {
-                "servers": [
-                    {
-                        "address": "127.0.0.1",
-                        "port": 9050
-                    }
-                ]
-            }
-        }
-    ],
-    "dns": {
-        "servers": [
-            {
-                "address": "https+local://dns.google/dns-query",
-                "address": "https+local://cloudflare-dns.com/dns-query",
-                "skipFallback": true
-            }
-        ],
-        "queryStrategy": "UseIPv4",
-        "disableCache": true,
-        "disableFallbackIfMatch": false
-    }
+         ],
+         "tls_connection_policies": [
+           {
+             "match": {
+               "sni": [
+                 "naive.buliang0.tk"  //域名
+               ]
+             },
+             "certificate_selection": {
+               "any_tag": [
+                 "cert0"
+               ]
+             }
+           }
+         ],
+         "automatic_https": {
+           "disable": true
+         }
+       }
+     }
+   },
+   "tls": {
+     "certificates": {
+       "load_files": [
+         {
+           "certificate": "/root/a.crt",  //公钥路径
+           "key": "/root/a.key",   //私钥路径
+           "tags": [
+             "cert0"
+           ]
+         }
+       ]
+     }
+   }
+ }
 }
 EOF
 
@@ -235,4 +101,4 @@ sed -e "1c :$PORT" -e "s/\$AUUID/$AUUID/g" -e "s/\$MYUUID-HASH/$(caddy hash-pass
 # Remove temporary directory
 rm -rf /conf
 # Let's get start
-tor & /usr/local/bin/xray -config /usr/local/bin/config.json & /usr/bin/caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+tor & /usr/bin/caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
