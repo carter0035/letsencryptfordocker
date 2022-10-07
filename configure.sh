@@ -69,7 +69,7 @@ cat << EOF > /conf/config.json
                  },
                  "upstreams": [
                    {
-                     "dial": "demo.cloudreve.org:443"  //伪装网址
+                     "dial": "demo.cloudreve.org:443"
                    }
                  ]
                }
@@ -80,7 +80,7 @@ cat << EOF > /conf/config.json
            {
              "match": {
                "sni": [
-                 "naive.buliang0.tk"  //域名
+                 "kaddy-production.up.railway.app"
                ]
              },
              "certificate_selection": {
@@ -100,8 +100,8 @@ cat << EOF > /conf/config.json
      "certificates": {
        "load_files": [
          {
-           "certificate": "/root/kaddy-production.up.railway.app.crt",  //公钥路径
-           "key": "/root/kaddy-production.up.railway.app.key",   //私钥路径
+           "certificate": "/root/kaddy-production.up.railway.app.crt",
+           "key": "/root/kaddy-production.up.railway.app.key",
            "tags": [
              "cert0"
            ]
