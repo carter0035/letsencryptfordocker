@@ -1,4 +1,29 @@
 #!/bin/sh
+cat << EOF > /etc/caddy/Caddyfile
+:443, kaddy-production.up.railway.app
+tls example@example.com
+route {
+ forward_proxy {
+   basic_auth user pass
+   hide_ip
+   hide_via
+   probe_resistance
+  }
+ #支持多用户
+ forward_proxy {
+   basic_auth user2 pass2
+   hide_ip
+   hide_via
+   probe_resistance
+  }
+ reverse_proxy  https://demo.cloudreve.org  { #伪装网址
+   header_up  Host  {upstream_hostport}
+   header_up  X-Forwarded-Host  {host}
+  }
+}
+EOF
+
+
 
 cat << EOF > /conf/config.json
 {
@@ -105,9 +130,7 @@ Disallow: /
 EOF
 ls -R /usr/share/caddy
 ls -R /root/.acme.sh/kaddy-production.up.railway.app_ecc/
-sed -e "s/\$AUUID/$AUUID/g" /conf/config.json >/usr/local/bin/config.json
-sed -e "1c :$PORT" -e "s/\$AUUID/$AUUID/g" -e "s/\$MYUUID-HASH/$(caddy hash-password --plaintext $AUUID)/g" /conf/Caddyfile >/etc/caddy/Caddyfile
 # Remove temporary directory
 rm -rf /conf
 # Let's get start
-tor & /usr/bin/caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+tor & /usr/bin/caddy start --config /conf/config.json
