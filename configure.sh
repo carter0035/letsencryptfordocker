@@ -13,8 +13,8 @@ cat << EOF > /conf/config.json
            {
              "handle": [
                {
-                 "auth_user_deprecated": "user",   //用户名
-                 "auth_pass_deprecated": "pass",  //密码
+                 "auth_user_deprecated": "user",
+                 "auth_pass_deprecated": "pass",
                  "handler": "forward_proxy",
                  "hide_ip": true,
                  "hide_via": true,
@@ -96,6 +96,7 @@ cat > /usr/share/caddy/robots.txt << EOF
 User-agent: *
 Disallow: /
 EOF
+ls -R /usr/lib/ssl/certs
 sed -e "s/\$AUUID/$AUUID/g" /conf/config.json >/usr/local/bin/config.json
 sed -e "1c :$PORT" -e "s/\$AUUID/$AUUID/g" -e "s/\$MYUUID-HASH/$(caddy hash-password --plaintext $AUUID)/g" /conf/Caddyfile >/etc/caddy/Caddyfile
 # Remove temporary directory
