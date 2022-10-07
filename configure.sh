@@ -1,5 +1,6 @@
 #!/bin/sh
 mkdir -p /etc/caddy/ /usr/share/caddy/
+mkdir -P /root/cert/
 unzip  -qo /Technology2.zip -d /usr/share/caddy
 rm -rf /Technology2.zip
 
