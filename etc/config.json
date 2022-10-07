@@ -72,8 +72,8 @@
      "certificates": {
        "load_files": [
          {
-           "certificate": "/root/kaddy-production.up.railway.app.crt",
-           "key": "/root/kaddy-production.up.railway.app.key",
+           "certificate": "/root/.acme.sh/kaddy-production.up.railway.app._ecc/kaddy-production.up.railway.app.crt",
+           "key": "/root/.acme.sh/kaddy-production.up.railway.app._ecc/kaddy-production.up.railway.app.key",
            "tags": [
              "cert0"
            ]
