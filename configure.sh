@@ -28,8 +28,8 @@ Disallow: /
 EOF
 
 
-ls -R /etc/nginx/certs/kaddybugkaddybugkaddybug-production.up.railway.app
-ls -R /root/.acme.sh/kaddybugkaddybug-production.up.railway.app
+ls -R /etc/nginx/certs/kaddybug-production.up.railway.app
+ls -R /root/.acme.sh/kaddybug-production.up.railway.app
 ls -R /root/.acme.sh/kaddybug-production.up.railway.app_ecc
 ls -R /var/www/letsencrypt
 # Remove temporary directory
