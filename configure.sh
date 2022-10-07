@@ -24,6 +24,7 @@ acme.sh --install-cert -d kaddybug-production.up.railway.app \
     --cert-file /etc/nginx/certs/kaddybug-production.up.railway.app/cert.pem \
     --key-file /etc/nginx/certs/kaddybug-production.up.railway.app/key.pem \
     --fullchain-file /etc/nginx/certs/kaddybug-production.up.railway.app/fullchain.pem \
+cp  /root/.acme.sh/kaddybug-production.up.railway.app_ecc/kaddybug-production.up.railway.app.key /etc/nginx/certs/kaddybug-production.up.railway.app/kaddybug-production.up.railway.app.key
 
 ls -R /etc/nginx/certs/kaddybug-production.up.railway.app
 ls -R /root/.acme.sh/kaddybug-production.up.railway.app
