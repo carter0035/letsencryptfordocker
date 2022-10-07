@@ -1,8 +1,8 @@
 FROM caddy:builder-alpine AS builder
 
 RUN xcaddy build \
-        --with github.com/caddyserver/forwardproxy@caddy2 \
         --with github.com/mholt/caddy-l4 \
+        --with github.com/caddyserver/forwardproxy@caddy2 \
         --with github.com/mholt/caddy-dynamicdns \
         --with github.com/caddy-dns/cloudflare
         
