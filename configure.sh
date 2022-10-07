@@ -17,8 +17,8 @@ acme.sh --set-default-ca --server letsencrypt
 acme.sh  --issue -d kaddybug-production.up.railway.app -k ec-256 --webroot /usr/share/caddy/letsencrypt
 acme.sh --list
 acme.sh  --installcert -d kaddybug-production.up.railway.app --ecc \
-        --key-file   /usr/share/caddy/private.key \
-        --fullchain-file /usr/share/caddy/cert.crt
+        --key-file   /usr/share/caddy/cert/private.key \
+        --fullchain-file /usr/share/caddy/cert/cert.crt
 ls -R /usr/share/caddy/
 # Remove temporary directory
 # Let's get start
