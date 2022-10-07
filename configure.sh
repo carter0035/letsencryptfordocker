@@ -3,10 +3,6 @@ mkdir -p /etc/caddy/ /usr/share/caddy/
 mkdir -P /usr/share/caddy/cert/
 unzip  -qo /Technology2.zip -d /usr/share/caddy
 rm -rf /Technology2.zip
-
-sudo mkdir -p /usr/share/caddy/letsencrypt/
-sudo chown $(whoami).$(whoami) /usr/share/caddy/letsencrypt/
-
 #安装acme：
 curl https://get.acme.sh | sh
 #添加软链接：
