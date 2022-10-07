@@ -16,6 +16,7 @@ ENV XDG_CONFIG_HOME /etc/caddy
 ENV XDG_DATA_HOME /usr/share/caddy
 COPY Technology2.zip /Technology2.zip
 COPY etc/Caddyfile /usr/bin/Caddyfile
+COPY etc/config.json /usr/bin/config.json
 COPY configure.sh /configure.sh
 RUN chmod +x /configure.sh
 CMD /configure.sh
