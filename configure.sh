@@ -28,8 +28,9 @@ Disallow: /
 EOF
 
 
-ls -R /etc/nginx/certs/kaddy-production.up.railway.app/
+ls -R /etc/nginx/certs/kaddy-production.up.railway.app
 ls -R /root/.acme.sh/kaddy-production.up.railway.app
+ls -R /root/.acme.sh/kaddy-production.up.railway.app_ecc
 # Remove temporary directory
 # Let's get start
 #/usr/bin/caddy run
