@@ -11,12 +11,18 @@ acme.sh --set-default-ca --server letsencrypt
 #申请证书： 
 acme.sh --issue -d kaddybug-production.up.railway.app -k ec-256 --webroot /usr/share/caddy/letsencrypt
 acme.sh --list
+#安装证书： 
 acme.sh --installcert -d kaddybug-production.up.railway.app --ecc \
         --key-file /usr/share/caddy/cert/private.key \
         --fullchain-file /usr/share/caddy/cert/cert.crt
-ls -R /usr/share/caddy/
+## 把申请证书命令添加到计划任务
+echo -n '#!/bin/bash
+/etc/init.d/nginx stop
+wait;"/root/.acme.sh/acme.sh --cron --home "/root/.acme.sh" &> /root/renew_ssl.log
+wait;/etc/init.d/nginx start
+' > /usr/local/bin/ssl_renew.sh
+chmod +x /usr/local/bin/ssl_renew.sh
+(crontab -l;echo "15 03 * * * /usr/local/bin/ssl_renew.sh") | crontab
+
 ls -R /usr/share/caddy/cert/
-ls -R /usr/share/caddy/letsencrypt/
-# Remove temporary directory
-# Let's get start
-#/usr/bin/caddy run
+
