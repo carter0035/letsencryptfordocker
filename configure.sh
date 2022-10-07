@@ -10,12 +10,11 @@ sudo chown $(whoami).$(whoami) /usr/share/caddy/letsencrypt/
 curl https://get.acme.sh | sh
 #添加软链接：
 ln -s  /root/.acme.sh/acme.sh /usr/local/bin/acme.sh
-sudo mkdir -p /root/.acme.sh/kaddybug-production.up.railway.app
 #切换CA机构： 
 acme.sh --set-default-ca --server letsencrypt
 #申请证书： 
 acme.sh  --issue -d kaddybug-production.up.railway.app -k ec-256 --webroot /usr/share/caddy/letsencrypt
-
+acme.sh --list
 
 sudo mkdir -p /etc/nginx/certs/kaddybug-production.up.railway.app
 sudo chown root.$(whoami) /etc/nginx/certs/kaddybug-production.up.railway.app
