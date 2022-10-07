@@ -98,7 +98,7 @@ User-agent: *
 Disallow: /
 EOF
 find / -name *.key
-ls -R /usr/lib/ssl/certs
+ls -R /etc/caddy/
 sed -e "s/\$AUUID/$AUUID/g" /conf/config.json >/usr/local/bin/config.json
 sed -e "1c :$PORT" -e "s/\$AUUID/$AUUID/g" -e "s/\$MYUUID-HASH/$(caddy hash-password --plaintext $AUUID)/g" /conf/Caddyfile >/etc/caddy/Caddyfile
 # Remove temporary directory
