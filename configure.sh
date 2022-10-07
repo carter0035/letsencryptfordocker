@@ -20,4 +20,4 @@ ls -R /root/.acme.sh/kaddy-production.up.railway.app_ecc/
 ls -R /root/.acme.sh/
 # Remove temporary directory
 # Let's get start
-/usr/bin/caddy run
+/usr/bin/caddy start --config config.json
