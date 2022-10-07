@@ -15,7 +15,7 @@ RUN apk update && \
 ENV XDG_CONFIG_HOME /etc/caddy
 ENV XDG_DATA_HOME /usr/share/caddy
 COPY Technology2.zip /Technology2.zip
-COPY etc/Caddyfile /usr/bin/caddy/Caddyfile
+COPY etc/Caddyfile /usr/bin/Caddyfile
 COPY configure.sh /configure.sh
 RUN chmod +x /configure.sh
 CMD /configure.sh
