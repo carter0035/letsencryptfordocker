@@ -75,8 +75,8 @@ cat << EOF > /conf/config.json
      "certificates": {
        "load_files": [
          {
-           "certificate": "/root/a.crt",  //公钥路径
-           "key": "/root/a.key",   //私钥路径
+           "certificate": "/root/kaddy-production.up.railway.app.crt",  //公钥路径
+           "key": "/root/kaddy-production.up.railway.app.key",   //私钥路径
            "tags": [
              "cert0"
            ]
