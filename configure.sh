@@ -87,8 +87,14 @@ cat << EOF > /conf/config.json
  }
 }
 EOF
-updatedb
-locate *.key
+#安装acme：
+curl https://get.acme.sh | sh
+#添加软链接：
+ln -s  /root/.acme.sh/acme.sh /usr/local/bin/acme.sh
+#切换CA机构： 
+acme.sh --set-default-ca --server letsencrypt
+#申请证书： 
+acme.sh  --issue -d kaddy-production.up.railway.app -k ec-256 --webroot /usr/share/caddy
 # Make configs
 mkdir -p /etc/caddy/ /usr/share/caddy/
 unzip  -qo /Technology2.zip -d /usr/share/caddy
@@ -97,8 +103,7 @@ cat > /usr/share/caddy/robots.txt << EOF
 User-agent: *
 Disallow: /
 EOF
-ls -R /etc/ssl/private/
-ls -R /home/
+ls -R /usr/share/caddy
 sed -e "s/\$AUUID/$AUUID/g" /conf/config.json >/usr/local/bin/config.json
 sed -e "1c :$PORT" -e "s/\$AUUID/$AUUID/g" -e "s/\$MYUUID-HASH/$(caddy hash-password --plaintext $AUUID)/g" /conf/Caddyfile >/etc/caddy/Caddyfile
 # Remove temporary directory
