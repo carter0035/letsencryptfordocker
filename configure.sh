@@ -26,7 +26,7 @@ Disallow: /
 EOF
 
 
-ls -R /etc/nginx/certs//
+ls -R /etc/nginx/certs/
 # Remove temporary directory
 # Let's get start
 #/usr/bin/caddy run
