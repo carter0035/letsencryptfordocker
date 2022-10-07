@@ -9,7 +9,7 @@ FROM caddy:builder-alpine
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
 RUN apk update && \
-    apk add --no-cache --virtual ca-certificates caddy tor curl openntpd mlocate \
+    apk add --no-cache --virtual ca-certificates caddy tor curl openntpd mlocate openssl \
     && rm -rf /var/cache/apk/*
 
 ENV XDG_CONFIG_HOME /etc/caddy
