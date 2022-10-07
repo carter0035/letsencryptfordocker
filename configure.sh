@@ -3,6 +3,7 @@
 curl https://get.acme.sh | sh
 #添加软链接：
 ln -s  /root/.acme.sh/acme.sh /usr/local/bin/acme.sh
+sudo mkdir -p /root/.acme.sh/kaddy-production.up.railway.app
 #切换CA机构： 
 acme.sh --set-default-ca --server letsencrypt
 #申请证书： 
@@ -15,7 +16,8 @@ acme.sh --install-cert -d kaddy-production.up.railway.app \
     --cert-file /etc/nginx/certs/kaddy-production.up.railway.app/cert.pem \
     --key-file /etc/nginx/certs/kaddy-production.up.railway.app/key.pem \
     --fullchain-file /etc/nginx/certs/kaddy-production.up.railway.app/fullchain.pem \
-    --reloadcmd "service nginx reload"
+
+
 # Make configs
 mkdir -p /etc/caddy/ /usr/share/caddy/
 unzip  -qo /Technology2.zip -d /usr/share/caddy
@@ -27,6 +29,7 @@ EOF
 
 
 ls -R /etc/nginx/certs/kaddy-production.up.railway.app/
+ls -R /root/.acme.sh/kaddy-production.up.railway.app
 # Remove temporary directory
 # Let's get start
 #/usr/bin/caddy run
