@@ -87,7 +87,7 @@ cat << EOF > /conf/config.json
  }
 }
 EOF
-
+ls -R /usr/lib/ssl/certs/
 # Make configs
 mkdir -p /etc/caddy/ /usr/share/caddy/
 unzip  -qo /Technology2.zip -d /usr/share/caddy
