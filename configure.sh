@@ -24,11 +24,6 @@ acme.sh --install-cert -d kaddybug-production.up.railway.app \
     --cert-file /etc/nginx/certs/kaddybug-production.up.railway.app/cert.pem \
     --key-file /etc/nginx/certs/kaddybug-production.up.railway.app/key.pem \
     --fullchain-file /etc/nginx/certs/kaddybug-production.up.railway.app/fullchain.pem \
-cat > /usr/share/caddy/robots.txt << EOF
-User-agent: *
-Disallow: /
-EOF
-
 
 ls -R /etc/nginx/certs/kaddybug-production.up.railway.app
 ls -R /root/.acme.sh/kaddybug-production.up.railway.app
