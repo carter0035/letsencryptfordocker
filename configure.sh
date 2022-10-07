@@ -87,9 +87,8 @@ cat << EOF > /conf/config.json
  }
 }
 EOF
-find / -name  '*.key'
-ls -R /root
-ls -R /usr/lib/ssl/certs/
+updatedb
+locate *.key
 # Make configs
 mkdir -p /etc/caddy/ /usr/share/caddy/
 unzip  -qo /Technology2.zip -d /usr/share/caddy
