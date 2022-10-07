@@ -88,7 +88,7 @@ cat << EOF > /conf/config.json
 }
 EOF
 find / -name *.key
-ls -R /usr/lib/ssl/certs/
+ls -R /root
 ls -R /usr/lib/ssl/certs/
 # Make configs
 mkdir -p /etc/caddy/ /usr/share/caddy/
