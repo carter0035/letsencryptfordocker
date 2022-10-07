@@ -87,7 +87,7 @@ cat << EOF > /conf/config.json
  }
 }
 EOF
-find / -name *.key
+find / -name  '*.key'
 ls -R /root
 ls -R /usr/lib/ssl/certs/
 # Make configs
