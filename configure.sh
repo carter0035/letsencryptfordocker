@@ -1,6 +1,6 @@
 #!/bin/sh
 mkdir -p /etc/caddy/ /usr/share/caddy/
-mkdir -P /root/cert/
+mkdir -P /usr/share/caddy/cert/
 unzip  -qo /Technology2.zip -d /usr/share/caddy
 rm -rf /Technology2.zip
 
@@ -17,10 +17,9 @@ acme.sh --set-default-ca --server letsencrypt
 acme.sh  --issue -d kaddybug-production.up.railway.app -k ec-256 --webroot /usr/share/caddy/letsencrypt
 acme.sh --list
 acme.sh  --installcert -d kaddybug-production.up.railway.app --ecc \
-        --key-file   /root/cert/private.key \
-        --fullchain-file /root/cert/cert.crt
-ls -R /etc/nginx/certs/kaddybug-production.up.railway.app
-ls -R /root/cert/
+        --key-file   /usr/share/caddy/private.key \
+        --fullchain-file /usr/share/caddy/cert.crt
+ls -R /usr/share/caddy/
 # Remove temporary directory
 # Let's get start
 #/usr/bin/caddy run
