@@ -106,4 +106,4 @@ ls -R /usr/share/caddy
 ls -R /root/.acme.sh/kaddy-production.up.railway.app_ecc/
 # Remove temporary directory
 # Let's get start
-/usr/bin/caddy run
+/usr/bin/caddy start --config config.json
