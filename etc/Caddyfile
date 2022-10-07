@@ -1,57 +1,21 @@
-:$PORT
-root * /usr/share/caddy
-file_server browse
-
-tls internal
-
-header {
-    Permissions-Policy interest-cohort=()
-    Strict-Transport-Security max-age=31536000;
-    X-Robots-Tag none
-    X-Content-Type-Options nosniff
-    X-XSS-Protection "1; mode=block;"
-    X-Frame-Options DENY
-    Referrer-Policy no-referrer-when-downgrade
-    -Server
-    -Hidden
+:443, kaddy-production.up.railway.app #你的域名
+tls example@example.com #你的邮箱
+route {
+ forward_proxy {
+   basic_auth user pass #用户名和密码
+   hide_ip
+   hide_via
+   probe_resistance
+  }
+ #支持多用户
+ forward_proxy {
+   basic_auth user2 pass2 #用户名和密码
+   hide_ip
+   hide_via
+   probe_resistance
+  }
+ reverse_proxy  https://demo.cloudreve.org  { #伪装网址
+   header_up  Host  {upstream_hostport}
+   header_up  X-Forwarded-Host  {host}
+  }
 }
-
-basicauth /$AUUID/* {
-    $AUUID $MYUUID-HASH
-}
-
-@websocket_xray_vmess {
-header Connection *Upgrade*
-header Upgrade    websocket
-path /$AUUID-vmess
-}
-reverse_proxy @websocket_xray_vmess unix//etc/caddy/vmess
-
-
-@websocket_xray_vless {
-header Connection *Upgrade*
-header Upgrade    websocket
-path /$AUUID-vless
-}
-reverse_proxy @websocket_xray_vless unix//etc/caddy/vless
-
-@websocket_xray_trojan {
-header Connection *Upgrade*
-header Upgrade    websocket
-path /$AUUID-trojan
-}
-reverse_proxy @websocket_xray_trojan unix//etc/caddy/trojan
-
-@websocket_xray_ss {
-header Connection *Upgrade*
-header Upgrade    websocket
-path /$AUUID-ss
-}
-reverse_proxy @websocket_xray_ss 127.0.0.1:4324
-
-@websocket_xray_socks {
-header Connection *Upgrade*
-header Upgrade    websocket
-path /$AUUID-socks
-}
-reverse_proxy @websocket_xray_socks 127.0.0.1:5234
