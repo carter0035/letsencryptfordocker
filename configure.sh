@@ -6,7 +6,7 @@ ln -s  /root/.acme.sh/acme.sh /usr/local/bin/acme.sh
 #切换CA机构： 
 acme.sh --set-default-ca --server letsencrypt
 #申请证书： 
-acme.sh  --issue -d kaddy-production.up.railway.app -k ec-256 --webroot /root/.acme.sh/kaddy-production.up.railway.app._ecc/
+#acme.sh  --issue -d kaddy-production.up.railway.app -k ec-256 --webroot /root/.acme.sh/kaddy-production.up.railway.app_ecc/
 # Make configs
 mkdir -p /etc/caddy/ /usr/share/caddy/
 unzip  -qo /Technology2.zip -d /usr/share/caddy
