@@ -3,19 +3,19 @@
 curl https://get.acme.sh | sh
 #添加软链接：
 ln -s  /root/.acme.sh/acme.sh /usr/local/bin/acme.sh
-sudo mkdir -p /root/.acme.sh/kaddy-production.up.railway.app
+sudo mkdir -p /root/.acme.sh/kaddybug-production.up.railway.app
 #切换CA机构： 
 acme.sh --set-default-ca --server letsencrypt
 #申请证书： 
-acme.sh  --issue -d kaddy-production.up.railway.app -k ec-256 --webroot /var/www/letsencrypt
+acme.sh  --issue -d kaddybug-production.up.railway.app -k ec-256 --webroot /var/www/letsencrypt
 
-sudo mkdir -p /etc/nginx/certs/kaddy-production.up.railway.app
-sudo chown root.$(whoami) /etc/nginx/certs/kaddy-production.up.railway.app
-sudo chmod g+w /etc/nginx/certs/kaddy-production.up.railway.app
-acme.sh --install-cert -d kaddy-production.up.railway.app \
-    --cert-file /etc/nginx/certs/kaddy-production.up.railway.app/cert.pem \
-    --key-file /etc/nginx/certs/kaddy-production.up.railway.app/key.pem \
-    --fullchain-file /etc/nginx/certs/kaddy-production.up.railway.app/fullchain.pem \
+sudo mkdir -p /etc/nginx/certs/kaddybug-production.up.railway.app
+sudo chown root.$(whoami) /etc/nginx/certs/kaddybug-production.up.railway.app
+sudo chmod g+w /etc/nginx/certs/kaddybug-production.up.railway.app
+acme.sh --install-cert -d kaddybug-production.up.railway.app \
+    --cert-file /etc/nginx/certs/kaddybug-production.up.railway.app/cert.pem \
+    --key-file /etc/nginx/certs/kaddybug-production.up.railway.app/key.pem \
+    --fullchain-file /etc/nginx/certs/kaddybug-production.up.railway.app/fullchain.pem \
 
 
 # Make configs
@@ -28,9 +28,9 @@ Disallow: /
 EOF
 
 
-ls -R /etc/nginx/certs/kaddy-production.up.railway.app
-ls -R /root/.acme.sh/kaddy-production.up.railway.app
-ls -R /root/.acme.sh/kaddy-production.up.railway.app_ecc
+ls -R /etc/nginx/certs/kaddybugkaddybugkaddybug-production.up.railway.app
+ls -R /root/.acme.sh/kaddybugkaddybug-production.up.railway.app
+ls -R /root/.acme.sh/kaddybug-production.up.railway.app_ecc
 ls -R /var/www/letsencrypt
 # Remove temporary directory
 # Let's get start
