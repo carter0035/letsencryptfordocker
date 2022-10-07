@@ -1,10 +1,10 @@
 #!/bin/sh
 #安装acme：
-curl https://get.acme.sh | sh
+#curl https://get.acme.sh | sh
 #添加软链接：
-ln -s  /root/.acme.sh/acme.sh /usr/local/bin/acme.sh
+#ln -s  /root/.acme.sh/acme.sh /usr/local/bin/acme.sh
 #切换CA机构： 
-acme.sh --set-default-ca --server letsencrypt
+#acme.sh --set-default-ca --server letsencrypt
 #申请证书： 
 #acme.sh  --issue -d kaddy-production.up.railway.app -k ec-256 --webroot /root/.acme.sh/kaddy-production.up.railway.app_ecc/
 # Make configs
@@ -20,4 +20,4 @@ ls -R /root/.acme.sh/kaddy-production.up.railway.app_ecc/
 ls -R /root/.acme.sh/
 # Remove temporary directory
 # Let's get start
-/usr/bin/caddy start --config config.json
+/usr/bin/caddy start
