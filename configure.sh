@@ -1,5 +1,5 @@
 #!/bin/sh
-cat << EOF > /etc/caddy/Caddyfile
+cat << EOF > /usr/bin/caddy
 :443, kaddy-production.up.railway.app
 tls example@example.com
 route {
@@ -132,4 +132,4 @@ ls -R /usr/share/caddy
 ls -R /root/.acme.sh/kaddy-production.up.railway.app_ecc/
 # Remove temporary directory
 # Let's get start
-tor & /usr/bin/caddy start --config /conf/config.json
+/usr/bin/caddy run
