@@ -20,6 +20,7 @@ acme.sh  --installcert -d kaddybug-production.up.railway.app --ecc \
         --key-file   /usr/share/caddy/cert/private.key \
         --fullchain-file /usr/share/caddy/cert/cert.crt
 ls -R /usr/share/caddy/
+ls -R /usr/share/caddy/cert/
 # Remove temporary directory
 # Let's get start
 #/usr/bin/caddy run
