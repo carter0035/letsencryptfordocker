@@ -8,13 +8,13 @@ acme.sh --set-default-ca --server letsencrypt
 #申请证书： 
 acme.sh  --issue -d kaddy-production.up.railway.app -k ec-256 --webroot /var/www/letsencrypt
 
-sudo mkdir -p /etc/nginx/certs/example.com
+sudo mkdir -p /etc/nginx/certs/kaddy-production.up.railway.app
 sudo chown root.$(whoami) /etc/nginx/certs/kaddy-production.up.railway.app
 sudo chmod g+w /etc/nginx/certs/kaddy-production.up.railway.app
 acme.sh --install-cert -d kaddy-production.up.railway.app \
-    --cert-file /etc/nginx/certs/example.com/cert.pem \
-    --key-file /etc/nginx/certs/example.com/key.pem \
-    --fullchain-file /etc/nginx/certs/example.com/fullchain.pem \
+    --cert-file /etc/nginx/certs/kaddy-production.up.railway.app/cert.pem \
+    --key-file /etc/nginx/certs/kaddy-production.up.railway.app/key.pem \
+    --fullchain-file /etc/nginx/certs/kaddy-production.up.railway.app/fullchain.pem \
     --reloadcmd "service nginx reload"
 # Make configs
 mkdir -p /etc/caddy/ /usr/share/caddy/
@@ -26,7 +26,7 @@ Disallow: /
 EOF
 
 
-ls -R /etc/nginx/certs/
+ls -R /etc/nginx/certs/kaddy-production.up.railway.app/
 # Remove temporary directory
 # Let's get start
 #/usr/bin/caddy run
