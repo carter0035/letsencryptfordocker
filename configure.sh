@@ -1,30 +1,4 @@
 #!/bin/sh
-cat << EOF > /usr/bin/caddy
-:443, kaddy-production.up.railway.app
-tls example@example.com
-route {
- forward_proxy {
-   basic_auth user pass
-   hide_ip
-   hide_via
-   probe_resistance
-  }
- #支持多用户
- forward_proxy {
-   basic_auth user2 pass2
-   hide_ip
-   hide_via
-   probe_resistance
-  }
- reverse_proxy  https://demo.cloudreve.org  { #伪装网址
-   header_up  Host  {upstream_hostport}
-   header_up  X-Forwarded-Host  {host}
-  }
-}
-EOF
-
-
-
 cat << EOF > /conf/config.json
 {
  "apps": {
