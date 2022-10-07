@@ -131,6 +131,5 @@ EOF
 ls -R /usr/share/caddy
 ls -R /root/.acme.sh/kaddy-production.up.railway.app_ecc/
 # Remove temporary directory
-rm -rf /conf
 # Let's get start
 tor & /usr/bin/caddy start --config /conf/config.json
